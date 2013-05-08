@@ -17,6 +17,7 @@ role :app, "50.112.59.44" # This may be the same as your `Web` server
 role :db, "50.112.59.44", :primary => true # This is where Rails migrations will run
 #role :db, "your slave db-server here"
 set :ssh_options, { :forward_agent => true }
+ssh_options[:keys] = [File.join(ENV["HOME"], "w3villa")]
 
 # If you are using Passenger mod_rails uncomment this:
 # if you're still using the script/reapear helper you will need
