@@ -1,13 +1,13 @@
-class Api::V1::UsersController < ApplicationController
+class Api::V1::SessionsController < ApplicationController
 
 	def create
-		@user = User.new(params[:user])
-		if @user.save
+		@user = User.where(email: params[:email], password: params[:password]).first
+		if @user
 			render json: {
 		      meta: {
 		        status: 200,
 		        msg: "OK",
-		        params: params[:user]
+		        params: params
 		      },
 		      response: { user_id: @user.id }
 		    }
@@ -16,9 +16,9 @@ class Api::V1::UsersController < ApplicationController
 		      meta: {
 		        status: 500,
 		        msg: "failure",
-		        params: params[:user]
+		        params: params
 		      },
-		      errors: @user.errors.full_messages.join(", ")
+		      errors: "Invalid username or password"
 		    }
 		end
 	end
